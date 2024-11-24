@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="footer.css">
+
+    <!-- Adding Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      
+    }
+
+    .cart-container {
+      width: 80%;
+      margin: 30px auto;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cart-header {
+      padding: 20px;
+      background-color: #0078D7;
+      color: white;
+      text-align: center;
+      font-size: 1.5em;
+    }
+
+    .cart-items {
+      width: 100%;
+      border-collapse: collapse;
+      min-height: 450px;
+    }
+
+    .cart-items th, .cart-items td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    .cart-items th {
+      background-color: #f1f1f1;
+    }
+
+    .cart-items td {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item-image img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .item-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cart-total {
+      padding: 20px;
+      text-align: right;
+      background-color: #f1f1f1;
+      font-size: 1.2em;
+    }
+
+    .remove-btn {
+      padding: 5px 10px;
+      background-color: #ff4d4f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #e43c3c;
+    }
+
+    .cart-footer {
+      text-align: right;
+      padding: 20px;
+    }
+
+    .checkout-btn {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+
+    .checkout-btn:hover {
+      background-color: #218838;
+    }
+    .total{
+        margin-left: 1050px;
+    }
+  </style>
+</head>
+<body>
+
+     <!-- Top Section -->
+     <div id="header"></div>
+    <main>
+        
+        <!-- Cart-specific content -->
+    </main>
+    
+      
+
+<h2>Your Cart</h2>
+<table class="cart-items">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Item</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="cart-content">
+    <!-- Cart items will be dynamically added here -->
+  </tbody>
+</table>
+<div class="total">
+  <strong>Total: $<span id="cart-total">0.00</span></strong>
+</div>
+<footer class="footer">
+    <!-- Contact Info -->
+    <div class="contact-info">
+        <div><i class="bi bi-phone"></i> PHONE: +1 (504) 446-0757</div>
+        <div><i class="bi bi-geo-alt"></i> ADDRESS: 30 North West New</div>
+    </div>
+
+    <!-- Logo and Description -->
+    <div class="logo">
+        <img src="https://via.placeholder.com/100" alt="Cafena Logo">
+    </div>
+    <div class="description">
+        The coffee is brewed by first roasting the green coffee beans over hot coals in a brazier, given an opportunity to sample.
+    </div>
+
+    <!-- Email Subscribe -->
+    <div class="email-subscribe">
+        <input type="email" placeholder="Enter your email">
+        <button>Subscribe</button>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-icons">
+        <a href="#"><i class="bi bi-twitter"></i></a>
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-youtube"></i></a>
+        <a href="#"><i class="bi bi-google"></i></a>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a href="#">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">MENU</a>
+        <a href="#">RESERVATION</a>
+        <a href="#">PAGES</a>
+        <a href="#">SHOP</a>
+        <a href="#">BLOG</a>
+    </div>
+
+    <!-- Go Top Button -->
+    <a href="#" class="go-top">GO TOP ↑</a>
+</footer>
+
+<script src="cart.js"></script>
+<script src="https://kit.fontawesome.com/6067f6f0c6.js" crossorigin="anonymous"></script>
+<script defer src="header.js"></script>
+</body>
+</html>
