@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="footer.css">
+
+    <!-- Adding Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Google Maps API is now loaded in order-tracking.html -->
+  <script>
+    // Function to initialize the page
+    function initPage() {
+      // Any cart-specific initialization can go here
+    }
+
+    // Initialize the page when loaded
+    window.onload = initPage;
+  </script>
+  <title>Cart</title>
+  <style>
+    .location-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.3s;
+    }
+    
+    .location-btn:hover {
+      background-color: #45a049;
+    }
+    
+    .location-btn i {
+      font-size: 16px;
+    }
+    
+    .location-btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      
+    }
+
+    .cart-container {
+      width: 80%;
+      margin: 30px auto;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cart-header {
+      padding: 20px;
+      background-color: #0078D7;
+      color: white;
+      text-align: center;
+      font-size: 1.5em;
+    }
+
+    .cart-items {
+      width: 100%;
+      border-collapse: collapse;
+      min-height: 450px;
+    }
+
+    .cart-items th, .cart-items td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    .cart-items th {
+      background-color: #f1f1f1;
+    }
+
+    .cart-items td {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item-image img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .item-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cart-total {
+      padding: 20px;
+      text-align: right;
+      background-color: #f1f1f1;
+      font-size: 1.2em;
+    }
+
+    .remove-btn {
+      padding: 5px 10px;
+      background-color: #ff4d4f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #e43c3c;
+    }
+
+    .cart-footer {
+      text-align: right;
+      padding: 20px;
+    }
+
+    .checkout-btn {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+
+    .checkout-btn:hover {
+      background-color: #218838;
+    }
+    .total{
+        margin-left: 1050px;
+    }
+
+    /* Address Form Styles */
+    .address-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .address-form input, .address-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .address-form label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    /* Updated Payment Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 9999;
+      overflow-y: auto; /* Enable scrolling */
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-height: 90vh; /* Maximum height of 90% of viewport height */
+      overflow-y: auto; /* Enable scrolling within modal if needed */
+    }
+
+    .address-form {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .address-form input, 
+    .address-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+      padding: 0 10px;
+    }
+
+    @media (min-width: 768px) {
+      .payment-options {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    .payment-button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      min-width: 150px;
+      transition: background-color 0.3s;
+    }
+
+    .payment-button.upi {
+      background-color: #0078D7;
+      color: white;
+    }
+
+    .payment-button.cod {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .payment-button:hover {
+      opacity: 0.9;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      z-index: 1;
+    }
+
+    /* Updated Tracking Modal Styles */
+    .tracking-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 10000;
+      overflow-y: auto;
+    }
+
+    .tracking-content {
+      background-color: white;
+      margin: 2% auto;
+      padding: 20px;
+      width: 95%;
+      max-width: 800px;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-height: 96vh;
+      overflow-y: auto;
+    }
+
+    #map {
+      height: 300px;
+      width: 100%;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .tracking-info {
+      margin: 15px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      border: 1px solid #e9ecef;
+    }
+
+    .tracking-status {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 15px 0;
+      padding: 10px;
+      background-color: #e9ecef;
+      border-radius: 4px;
+    }
+
+    .status-step {
+      text-align: center;
+      flex: 1;
+      min-width: 120px;
+      padding: 10px;
+      position: relative;
+      margin: 5px 0;
+    }
+
+    .status-step.active {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .status-step.completed {
+      color: #28a745;
+    }
+
+    .status-step::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background-color: #dee2e6;
+      z-index: 1;
+    }
+
+    .status-step:last-child::after {
+      display: none;
+    }
+
+    /* Updated address input styles to match Google Maps */
+    .address-input-container {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Styles for the new PlaceAutocompleteElement */
+    gmp-place-autocomplete {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      display: block;
+    }
+
+    gmp-place-autocomplete:focus-within {
+      border-color: #4285f4;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+    }
+
+    /* Style the suggestions dropdown */
+    .pac-container {
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      font-family: Arial, sans-serif;
+      z-index: 10000 !important;
+      margin-top: 4px;
+    }
+
+    .pac-item {
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+
+    .pac-item:last-child {
+      border-bottom: none;
+    }
+
+    .pac-item:hover {
+      background-color: #f5f5f5;
+    }
+
+    .pac-icon {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .pac-item-query {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .pac-matched {
+      font-weight: bold;
+    }
+
+    .address-validation-message {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #666;
+      min-height: 20px;
+    }
+
+    .address-validation-message.valid {
+      color: #0f9d58;
+    }
+
+    .address-validation-message.invalid {
+      color: #d93025;
+    }
+  </style>
+</head>
+<body>
+
+     <!-- Top Section -->
+     <div id="header"></div>
+    <main>
+        
+        <!-- Cart-specific content -->
+    </main>
+    
+      
+
+<h2>Your Cart</h2>
+<table class="cart-items">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Item</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="cart-content">
+    <!-- Cart items will be dynamically added here -->
+  </tbody>
+</table>
+<div class="total">
+  <div style="margin-bottom: 15px; text-align: left;">
+    <button id="location-btn" class="location-btn">
+      <i class="fas fa-location-arrow"></i> Set Delivery Location
+    </button>
+    <div id="user-location" style="margin-top: 5px; font-size: 14px; color: #666;">
+      Location not set. Click the button above to set your delivery location.
+    </div>
+  </div>
+  <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+    <strong>Total: $<span id="cart-total">0.00</span></strong>
+    <button onclick="showPaymentModal()" class="checkout-btn">Proceed to Payment</button>
+  </div>
+</div>
+
+<!-- Updated Payment Modal HTML -->
+<div id="payment-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="hidePaymentModal()">&times;</span>
+    <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Delivery Information</h2>
+    
+    <div class="address-form">
+      <div>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" required>
+      </div>
+      <div>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" required>
+      </div>
+      <div>
+        <label for="address">Delivery Address:</label>
+        <div class="address-input-container">
+          <input 
+            type="text" 
+            id="address" 
+            required 
+            placeholder="Start typing your address in Jaipur"
+            autocomplete="off"
+          >
+          <div id="address-validation" class="address-validation-message"></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="text-align: center; color: #333; margin: 20px 0;">Choose Payment Method</h3>
+    <div class="payment-options">
+      <button type="button" id="upi-btn" class="payment-button upi">
+        Pay with UPI
+      </button>
+      <button type="button" id="cod-btn" class="payment-button cod">
+        Cash on Delivery
+      </button>
+    </div>
+    <p style="text-align: center; margin-top: 20px; color: #666; font-style: italic;">
+      This is a simulation. No actual payment will be processed.
+    </p>
+  </div>
+</div>
+
+<!-- Order tracking has been moved to order-tracking.html -->
+
+<footer class="footer">
+    <!-- Contact Info -->
+    <div class="contact-info">
+        <div><i class="bi bi-phone"></i> PHONE: +1 (504) 446-0757</div>
+        <div><i class="bi bi-geo-alt"></i> ADDRESS: 30 North West New</div>
+    </div>
+
+    <!-- Logo and Description -->
+    <div class="logo">
+        <img src="https://via.placeholder.com/100" alt="Cafena Logo">
+    </div>
+    <div class="description">
+        The coffee is brewed by first roasting the green coffee beans over hot coals in a brazier, given an opportunity to sample.
+    </div>
+
+    <!-- Email Subscribe -->
+    <div class="email-subscribe">
+        <input type="email" placeholder="Enter your email">
+        <button>Subscribe</button>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-icons">
+        <a href="#"><i class="bi bi-twitter"></i></a>
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-youtube"></i></a>
+        <a href="#"><i class="bi bi-google"></i></a>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+        <a href="#">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">MENU</a>
+        <a href="#">RESERVATION</a>
+        <a href="#">PAGES</a>
+        <a href="#">SHOP</a>
+        <a href="#">BLOG</a>
+    </div>
+
+    <!-- Go Top Button -->
+    <a href="#" class="go-top">GO TOP ↑</a>
+</footer>
+
+<!-- Add payment handling script -->
+<script>
+// Simple functions for payment handling
+function showPaymentModal() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  // Check if location is set
+  const deliveryLocation = JSON.parse(localStorage.getItem('deliveryLocation'));
+  if (!deliveryLocation) {
+    alert('Please set your delivery location first!');
+    return;
+  }
+  
+  document.getElementById('payment-modal').style.display = 'block';
+}
+
+function hidePaymentModal() {
+  document.getElementById('payment-modal').style.display = 'none';
+}
+
+// Handle payment button clicks
+document.addEventListener('DOMContentLoaded', function() {
+  // Get delivery information form elements
+  const fullNameInput = document.getElementById('fullName');
+  const phoneInput = document.getElementById('phone');
+  const addressInput = document.getElementById('address');
+  const upiBtn = document.getElementById('upi-btn');
+  const codBtn = document.getElementById('cod-btn');
+  
+  // Function to validate form
+  function validateForm() {
+    if (!fullNameInput?.value.trim()) {
+      alert('Please enter your full name');
+      return false;
+    }
+    if (!phoneInput?.value.trim()) {
+      alert('Please enter your phone number');
+      return false;
+    }
+    if (!addressInput?.value.trim()) {
+      alert('Please enter your delivery address');
+      return false;
+    }
+    return true;
+  }
+  
+  // UPI Payment handler
+  if (upiBtn) {
+    upiBtn.addEventListener('click', function() {
+      if (!validateForm()) return;
+      
+      // Show loading state
+      upiBtn.disabled = true;
+      upiBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      
+      // Process payment
+      processPayment('UPI Payment');
+    });
+  }
+  
+  // Cash on Delivery handler
+  if (codBtn) {
+    codBtn.addEventListener('click', function() {
+      if (!validateForm()) return;
+      
+      // Show loading state
+      codBtn.disabled = true;
+      codBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Placing Order...';
+      
+      // Process order
+      processPayment('Cash on Delivery');
+    });
+  }
+});
+
+// Function to process payment and create order
+function processPayment(paymentMethod) {
+  try {
+    // Get cart and calculate total
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const total = parseFloat(document.getElementById('cart-total').textContent);
+    const deliveryLocation = JSON.parse(localStorage.getItem('deliveryLocation'));
+    
+    // Create order object
+    const order = {
+      orderNumber: 'ORD' + Math.floor(100000 + Math.random() * 900000),
+      timestamp: new Date().toISOString(),
+      items: cart,
+      total: total,
+      paymentMethod: paymentMethod,
+      status: 'preparing',
+      location: deliveryLocation || { lat: 26.8534, lng: 75.8245 } // Default to cafe location if not set
+    };
+    
+    // Save order to localStorage
+    localStorage.setItem('currentOrder', JSON.stringify(order));
+    
+    // Clear cart
+    localStorage.removeItem('cart');
+    
+    // Show success message
+    alert(paymentMethod === 'UPI Payment' ? 'Payment successful!' : 'Order placed successfully!');
+    
+    // Redirect to order tracking page after a short delay
+    setTimeout(() => {
+      window.location.href = 'order-tracking.html';
+    }, 1000);
+    
+  } catch (error) {
+    console.error('Error processing order:', error);
+    alert('An error occurred while processing your order. Please try again.');
+    
+    // Reset buttons
+    const upiBtn = document.getElementById('upi-btn');
+    const codBtn = document.getElementById('cod-btn');
+    
+    if (upiBtn) {
+      upiBtn.disabled = false;
+      upiBtn.innerHTML = 'Pay with UPI';
+    }
+    
+    if (codBtn) {
+      codBtn.disabled = false;
+      codBtn.innerHTML = 'Cash on Delivery';
+    }
+  }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  const modal = document.getElementById('payment-modal');
+  if (event.target === modal) {
+    hidePaymentModal();
+  }
+}
+</script>
+
+<!-- Load other scripts -->
+<script src="header.js" defer></script>
+<script src="cart.js" defer></script>
+<script src="https://kit.fontawesome.com/6067f6f0c6.js" crossorigin="anonymous"></script>
+</body>
+</html>

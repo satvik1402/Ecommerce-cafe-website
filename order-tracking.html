@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking - Coffee Aroma</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="header.css">
+    <style>
+        /* Header styles */
+       
+
+
+
+        /* Base styles */
+        .container-fluid {
+  width: 100%;
+  padding: 0 5%; /* Provides responsive padding */
+  box-sizing: border-box;
+}
+
+
+/* Top Section (Header) */
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.top-section img {
+  height: 78px; /* Adjust height for better visibility */
+  width: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the logo fits well within the container */
+  margin-right: 10px; /* Add spacing */
+  display: block; /* Ensure it doesn't collapse or shift unexpectedly */
+}
+
+
+.contact-info {
+  font-size: 14px;
+}
+
+.social-icons a {
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.social-icons a:hover {
+  color: #c19c85;
+}
+
+.btn, button, .btn-primary, .btn-secondary {
+  padding: 10px 20px;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover, button:hover, .btn-primary:hover, .btn-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #ccc;
+  color: #222;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn:active, button:active, .btn-primary:active, .btn-secondary:active {
+  background-color: #f1f1f1;
+  transform: translateY(1px);
+}
+
+        
+        
+        /* Status Container */
+        .status-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Status Steps */
+        .status-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 2rem 0 3rem;
+            padding: 0 2rem;
+        }
+        
+        .status-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+        
+        .status-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            right: -50%;
+            height: 4px;
+            background: #e9ecef;
+            z-index: -1;
+        }
+        
+        .status-step.active .step-number {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+            transform: scale(1.1);
+            box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.2);
+        }
+        
+        .status-step.completed .step-number {
+            background-color: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        
+        .status-step.completed::after {
+            background: #198754;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .step-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-align: center;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        /* Map Styles */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin: 20px 0;
+        }
+        
+        /* Order Details */
+        .order-details {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .order-details h4 {
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f8f9fa;
+        }
+        
+        /* Delivery Estimate */
+        .delivery-estimate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0 0;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 1px dashed #dee2e6;
+        }
+        
+        .delivery-estimate i {
+            color: #0d6efd;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary {
+            border-color: #dee2e6;
+            color: #6c757d;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .status-steps {
+                padding: 0 1rem;
+            }
+            
+            .step-label {
+                font-size: 0.75rem;
+            }
+            
+            .status-step:not(:last-child)::after {
+                right: -40%;
+            }
+        }
+        
+        .delivery-marker {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/535/535137.png');
+            background-size: cover;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .cafe-marker {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/2776/2777154.png');
+            background-size: cover;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .user-marker {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/149/149071.png');
+            background-size: cover;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .order-status {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            position: relative;
+        }
+        .status-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #dee2e6;
+            margin: 0 auto 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .status-step.active .status-dot {
+            background-color: #0d6efd;
+            box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.2);
+        }
+        .status-step.completed .status-dot {
+            background-color: #198754;
+        }
+        .status-text {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+     
+    <main>
+        <!-- Page-specific content -->
+ </div>
+    <div class="container py-5" style="margin-top: 80px;">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold mb-3">Track Your Order</h2>
+                    <p class="lead text-muted">Real-time tracking for your coffee delivery</p>
+                </div>
+
+                <!-- Order Status -->
+                <div class="status-container">
+                    <div class="status-steps">
+                        <div class="status-step active" id="status-preparing">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Preparing</div>
+                        </div>
+                        <div class="status-step" id="status-otw">
+                            <div class="step-number">2</div>
+                            <div class="step-label">On the way</div>
+                        </div>
+                        <div class="status-step" id="status-delivered">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Delivered</div>
+                        </div>
+                        <div class="progress-line">
+                            <div class="progress" id="status-progress"></div>
+                        </div>
+                    </div>
+
+                    <div class="delivery-estimate">
+                        <i class="fas fa-clock"></i>
+                        <span id="delivery-time">Estimated delivery: 20-25 mins</span>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body p-0">
+                        <div id="map" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+
+                <!-- Order Details -->
+                <div class="order-details">
+                    <h4 class="mb-4">Order Details</h4>
+                    <div id="order-items" class="mb-4"></div>
+                    <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                        <h5 class="mb-0">Total Amount:</h5>
+                        <h4 class="mb-0 text-primary" id="order-total"></h4>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="index.html" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Menu
+                    </a>
+                    <button class="btn btn-primary" id="contact-rider">
+                        <i class="fas fa-motorcycle me-2"></i>Contact Rider
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (required by Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/6067f6f0c6.js" crossorigin="anonymous"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <!-- Leaflet Routing Machine -->
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"
+            integrity="sha384-+jKz8f4z1Y1ZJ1Xfz1VUf7YwK0Xr47HRJ4nZ4z5L5f5f5f5f5f5f5f5f5f5f5f5"
+            crossorigin="anonymous"></script>
+    <script src="header.js"></script>
+    <script src="order-tracking.js"></script>
+</body>
+</html>

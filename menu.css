@@ -1,0 +1,165 @@
+ /* Container for the menu */
+ .container {
+    max-width: 1200px; /* Maximum width of the container */
+    margin: 0 auto; /* Centering */
+    padding: 20px;
+     /* Padding around the container */
+  }
+   /* Container styling */
+   .tab-container {
+    display: flex;
+    background-color: #f8f5f2;
+    padding: 8px;
+    border-radius: 8px;
+    justify-content: center;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Button styling */
+.tab-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #6c6c6c;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+/* Active button styling */
+.tab-button.active {
+    
+    color: #6c6c6c;
+}
+
+/* Hover effect */
+.tab-button:hover {
+    background-color: #c5a17d;
+}
+
+/* Focus outline for accessibility */
+.tab-button:focus {
+    outline: 2px solid #c5a17d;
+    outline-offset: 2px;
+}
+
+  /* Header styles */
+  .menu-header {
+    text-align: center; /* Centered text */
+    margin-bottom: 30px; /* Spacing below header */
+  }
+  
+  .menu-header h1 {
+    font-size: 2.5rem; /* Font size for the main heading */
+    color: #333; /* Heading color */
+    margin-bottom: 20px; /* Space below heading */
+  }
+  
+  /* Button group styles */
+  .btn-toolbar {
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center button group horizontally */
+  }
+  
+  .btn-group {
+    margin: 0; /* No margin for button group */
+  }
+  
+  .btn-group-lg .btn {
+    padding: 10px 20px; /* Increase padding for larger buttons */
+    font-size: 1.2rem; /* Increase font size */  }
+    
+/* Card Container */
+/* Card Container */
+/* Card Container */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 15px; /* Spacing between cards */
+    padding: 15px;
+    width: 100%; /* Ensure the container takes full width */
+    box-sizing: border-box; /* Prevents padding from affecting overall width */
+}
+
+
+/* Card styling */
+.card {
+    display: grid;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.3s;
+    /* Ensures each card takes full width within its grid cell */
+}
+
+/* Hover effect */
+.card:hover {
+    transform: scale(1.02);
+}
+
+/* Image styling */
+.card img {
+    width: 100%;
+    height: 200px; /* Increased image height */
+    object-fit: cover;
+}
+
+/* Card body styling */
+.card-body {
+    padding: 10px; /* Padding for spacing */
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Card title styling */
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+/* Price styling */
+.card-price {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Discounted price styling */
+.card-price .discounted {
+    color: #d17a45;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* Original price styling */
+.card-price .original {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 13px;
+}
+
+/* Icon button container */
+.card-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+/* Icon button styling */
+.card-buttons button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.card-buttons button:hover {
+    color: #d17a45;
+}

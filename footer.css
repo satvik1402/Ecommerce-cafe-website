@@ -1,0 +1,98 @@
+
+
+.footer {
+    background-color: #111;
+    padding: 40px 0;
+    color: #fff;
+    text-align: center;
+}
+
+.footer .contact-info {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.footer .contact-info div {
+    margin: 0 15px;
+    color: #f5f5f5;
+}
+
+.footer .contact-info div i {
+    margin-right: 8px;
+}
+
+.footer .logo {
+    margin-bottom: 20px;
+}
+
+.footer .logo img {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.footer .description {
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.footer .email-subscribe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.footer .email-subscribe input {
+    padding: 8px;
+    width: 250px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.footer .email-subscribe button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #e6b792;
+    color: black;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.footer .social-icons {
+    margin-bottom: 20px;
+}
+
+.footer .social-icons a {
+    margin: 0 10px;
+    color: #ccc;
+    font-size: 1.2rem;
+}
+
+.footer .nav-links {
+    margin-bottom: 10px;
+}
+
+.footer .nav-links a {
+    margin: 0 10px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.footer .nav-links a:hover {
+    color: #e6b792;
+}
+
+.footer .go-top {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #e6b792;
+    text-decoration: none;
+}
+
+.footer .go-top:hover {
+    text-decoration: underline;
+}

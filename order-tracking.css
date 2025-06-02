@@ -1,0 +1,220 @@
+/* Order Tracking Page Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.status-container {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.status-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 2rem 0 3rem;
+    padding: 0 2rem;
+}
+
+.status-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.status-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    right: -50%;
+    height: 4px;
+    background: #e9ecef;
+    z-index: -1;
+}
+
+.status-step.active .step-number {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.2);
+}
+
+.status-step.completed .step-number {
+    background-color: #198754;
+    color: white;
+    border-color: #198754;
+}
+
+.status-step.completed::after {
+    background: #198754;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.step-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: center;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
+}
+
+.order-details {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.order-details h4 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.delivery-estimate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 0;
+    font-weight: 500;
+    color: #2c3e50;
+    border: 1px dashed #dee2e6;
+}
+
+.delivery-estimate i {
+    color: #0d6efd;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary {
+    border-color: #dee2e6;
+    color: #6c757d;
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .status-steps {
+        padding: 0 1rem;
+    }
+    
+    .step-label {
+        font-size: 0.75rem;
+    }
+    
+    .status-step:not(:last-child)::after {
+        right: -40%;
+    }
+}
+
+/* Map Marker Styles */
+.delivery-marker {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/535/535137.png');
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cafe-marker {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/2776/2777154.png');
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.user-marker {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/149/149071.png');
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Status Dots */
+.status-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #dee2e6;
+    margin: 0 auto 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.status-step.active .status-dot {
+    background-color: #0d6efd;
+    box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.2);
+}
+
+.status-step.completed .status-dot {
+    background-color: #198754;
+}
+
+.status-text {
+    font-size: 14px;
+    margin-top: 5px;
+}
